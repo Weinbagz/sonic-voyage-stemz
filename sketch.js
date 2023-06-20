@@ -99,7 +99,7 @@ function preload() {
   loadingIndicator = createElement("p", "Loading...");
   
   bgImage = loadImage('https://storage.googleapis.com/playerz_cardz/sonic_voyage_img/zzbackground.png');
-  overlayImage = loadImage('https://storage.googleapis.com/playerz_cardz/sonic_voyage_img/Top.png');
+ 
 
   categories.forEach((category) => {
     players[category] = [];
@@ -469,6 +469,6 @@ function draw() {
   }
 
   // Render the overlay image to cover the entire canvas
-  image(overlayImage, 0, 0, width, height); 
+ // image(overlayImage, 0, 0, width, height); 
 }
 
