@@ -2,7 +2,8 @@ let images = {}; // Store images here
 let currentImages = {}; // Store currently showing images here
 let bgImage; // 
 let overlayImage;
-
+let alpha = 0; // This variable will control the opacity during the fade effect
+let fading = false; // This variable will indicate if a fade effect is happening
 let players = {};
 let effects = {};
 let categories = [
@@ -157,7 +158,7 @@ currentImages[category] = images[category][0];
           "https://storage.googleapis.com/playerz_cardz/sonic_voyage/" +
           category +
           i +
-          ".mp3",
+          ".mp3" + "?authuser=1",
         onload: () => {
           console.log(category + i + ".mp3 has loaded.");
           player.sync().start(0);
@@ -228,22 +229,25 @@ function setupInterface() {
 
     selects[category] = select;
     select.changed(() => {
-      let displayName = selects[category].value();
-      let index = categoryDisplayNames[category].indexOf(displayName);
-      let player = players[category][index];
-      let img = images[category][index];
+    let displayName = selects[category].value();
+    let index = categoryDisplayNames[category].indexOf(displayName);
+    let player = players[category][index];
+    let img = images[category][index];
 
-      if (currentPlayers[category]) {
-        currentPlayers[category].mute = true;
-      }
+    if (currentPlayers[category]) {
+      currentPlayers[category].mute = true;
+    }
 
-      player.mute = false;
-      player.volume.value = volumeSliders[category].value();
-      currentPlayers[category] = player;
+    player.mute = false;
+    player.volume.value = volumeSliders[category].value();
+    currentPlayers[category] = player;
 
-      // Set current image
-      currentImages[category] = img;
-    });
+    // Initiating the fade effect
+    fading = true;
+    alpha = 0; // Reset alpha to 0 when starting the fade effect
+    currentImages[category] = img; // Set the new image, which will gradually appear
+  });
+
 
     // Select the first item by default
     if (selects[category].value() === categoryDisplayNames[category][0]) {
@@ -470,7 +474,7 @@ function clearInterface() {
 }
 
 function setup() {
-  let cnv = createCanvas(800, 800); // specify your canvas size
+  let cnv = createCanvas(300, 300); // specify your canvas size
   cnv.parent("my-sketch"); // set a parent for the canvas (optional)
   background(200); // set a gray background so we can see the canvas
 
@@ -487,15 +491,16 @@ function draw() {
   clear(); // Clear the canvas
 
   // Render the background image to cover the entire canvas
-  image(bgImage, 0, 0, width, height); 
+  image(bgImage, 0, 0, 300, 300); 
 
   // Iterate through all categories and display their current image
   for (let category in currentImages) {
     let img = currentImages[category];
     if (img) {
       // Display the image to cover the entire canvas
-      image(img, 0, 0, width, height); 
+      image(img, 0, 0, 300, 300); 
     }
   }
+  
 }
 
