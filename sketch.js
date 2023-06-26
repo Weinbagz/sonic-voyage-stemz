@@ -433,16 +433,16 @@ async function startAudio() {
 
   Tone.Transport.start();
   
-  let unmuteButton = createButton("Unmute");
-  unmuteButton.addClass("unmuteButton");
-  unmuteButton.parent(document.body); // Append the button directly to the body
+  // let unmuteButton = createButton("Unmute");
+  // unmuteButton.addClass("unmuteButton");
+  // unmuteButton.parent(document.body); // Append the button directly to the body
 
-  // Event listener to unmute
-  unmuteButton.mousePressed(async () => {
-    if (Tone.context.state !== "running") {
-      await Tone.context.resume();
-    }
-  });
+  // // Event listener to unmute
+  // unmuteButton.mousePressed(async () => {
+  //   if (Tone.context.state !== "running") {
+  //     await Tone.context.resume();
+  //   }
+  // });
 }
 
 async function startAudio() {
