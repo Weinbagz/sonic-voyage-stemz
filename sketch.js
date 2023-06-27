@@ -459,19 +459,19 @@ async function startAudio() {
 }
 
 
-function clearInterface() {
-  // Mute the current player for each category before clearing the interface
-  for (let category in currentPlayers) {
-    currentPlayers[category].mute = true;
-  }
+// function clearInterface() {
+//   // Mute the current player for each category before clearing the interface
+//   for (let category in currentPlayers) {
+//     currentPlayers[category].mute = true;
+//   }
 
-  // Clear all elements created by setupInterface function
-  document
-    .querySelectorAll(
-      ".row, .category, .label, .select, .volume, .effects, .wetDry, .solo, .mute, p, button"
-    )
-    .forEach((element) => element.remove());
-}
+//   // Clear all elements created by setupInterface function
+//   document
+//     .querySelectorAll(
+//       ".row, .category, .label, .select, .volume, .effects, .wetDry, .solo, .mute, p, button"
+//     )
+//     .forEach((element) => element.remove());
+// }
 
 function setup() {
   let cnv = createCanvas(300, 300); // specify your canvas size
