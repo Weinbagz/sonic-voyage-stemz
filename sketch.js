@@ -415,10 +415,10 @@ togglePlaybackButton.parent(document.body);
  
 }
 
-window.addEventListener("resize", () => {
-  clearInterface();
-  setupInterface();
-});
+// // window.addEventListener("resize", () => {
+// //   clearInterface();
+// //   setupInterface();
+// });
 
 
 async function startAudio() {
