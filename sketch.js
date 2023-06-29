@@ -174,7 +174,6 @@ currentImages[category] = images[category][0];
             allLoaded = true;
             console.log("All assets are loaded.");
             setupInterface();
-            startAudio(); 
           }
         },
         loop: true,
@@ -390,9 +389,25 @@ function setupInterface() {
       }
     });
   });
+  
+  let startAudioButton = createButton("Start Audio");
+startAudioButton.addClass("startAudioButton");
+startAudioButton.parent(document.body); // Append the button directly to the body
+
+// Event listener to start audio
+startAudioButton.mousePressed(async () => {
+  if (Tone.context.state !== "running") {
+    await Tone.start();
+  }
+  // Unmute the current player for each category
+  for (let category in currentPlayers) {
+    currentPlayers[category].mute = false;
+  }
+  Tone.Transport.start();
+});
 
 
- let togglePlaybackButton = createButton("Toggle Playback");
+ let togglePlaybackButton = createButton("Stop Playback");
 togglePlaybackButton.addClass("togglePlaybackButton");
 
 togglePlaybackButton.mousePressed(async () => {
@@ -415,10 +430,10 @@ togglePlaybackButton.parent(document.body);
  
 }
 
-// // window.addEventListener("resize", () => {
-// //   clearInterface();
-// //   setupInterface();
-// });
+window.addEventListener("resize", () => {
+  clearInterface();
+  setupInterface();
+});
 
 
 async function startAudio() {
@@ -459,19 +474,19 @@ async function startAudio() {
 }
 
 
-// function clearInterface() {
-//   // Mute the current player for each category before clearing the interface
-//   for (let category in currentPlayers) {
-//     currentPlayers[category].mute = true;
-//   }
+function clearInterface() {
+  // Mute the current player for each category before clearing the interface
+  for (let category in currentPlayers) {
+    currentPlayers[category].mute = true;
+  }
 
-//   // Clear all elements created by setupInterface function
-//   document
-//     .querySelectorAll(
-//       ".row, .category, .label, .select, .volume, .effects, .wetDry, .solo, .mute, p, button"
-//     )
-//     .forEach((element) => element.remove());
-// }
+  // Clear all elements created by setupInterface function
+  document
+    .querySelectorAll(
+      ".row, .category, .label, .select, .volume, .effects, .wetDry, .solo, .mute, p, button"
+    )
+    .forEach((element) => element.remove());
+}
 
 function setup() {
   let cnv = createCanvas(300, 300); // specify your canvas size
