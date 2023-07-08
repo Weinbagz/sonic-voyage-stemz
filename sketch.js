@@ -19,7 +19,7 @@ let effectsList = ["none", "delay", "reverb", "distortion", "vibrato"];
 let categoryFileCounts = {
   Bass: 5,
   Drums: 5,
-  Lead: 5,
+  Lead: 6,
   Chords: 6,
   Accent: 6,
   EFX: 9,
@@ -34,7 +34,7 @@ let categoryDisplayNames = {
     "Arpeggiator",
   ],
   Drums: ["Tambist", "8bit Drummer", "The Slomo", "Heartbeat", "House Drummer"],
-  Lead: ["The Traveler", "The Visitor", "Whistler", "Sonic Voyage", "The Bull"],
+  Lead: ["The Traveler", "The Visitor", "Whistler", "Sonic Voyage", "The Bull", "Sara Phillips"],
   Chords: [
     "Pump It Up",
     "The Vibist",
