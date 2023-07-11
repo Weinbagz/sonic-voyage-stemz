@@ -95,6 +95,15 @@ for (let category in categoryFileCounts) {
   totalFiles += categoryFileCounts[category];
 }
 
+window.addEventListener('error', function (event) {
+  console.error('An error occurred: ', event.error);
+  console.error('Error message: ', event.message);
+  console.error('File: ', event.filename);
+  console.error('Line number: ', event.lineno);
+  console.error('Column number: ', event.colno);
+});
+
+
 function preload() {
   loadingIndicator = createElement("p", "Loading...");
   
