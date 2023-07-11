@@ -186,23 +186,22 @@ currentImages[category] = images[category][0];
 }
 
 function setupInterface() {
-  let row1 = createElement("div");
+   let row1 = createElement("div");
   row1.addClass("row");
   let row2 = createElement("div");
   row2.addClass("row");
   let row3 = createElement("div");
   row3.addClass("row");
-  let row4 = createElement("div");
-  row4.addClass("row");
+ 
 
-  const rows = [row1, row2, row3, row4];
+  const rows = [row1, row2, row3];
 
   categories.forEach((category, i) => {
     let categoryContainer = createElement("div");
     categoryContainer.addClass("category");
 
     const rowIndex =
-      window.innerWidth > 768 ? Math.floor(i / 3) : Math.floor(i / 2);
+      window.innerWidth > 768 ? Math.floor(i / 3) : Math.floor(i / 3);
     categoryContainer.parent(rows[rowIndex]);
 
     let categoryLabel = createElement("div", category);
@@ -385,10 +384,7 @@ function setupInterface() {
     });
   });
 
-  let playlabel = createElement("p", "Press Play Twice To Activate Sound");
-
-  playlabel.style("color", "#f708f7");
-  playlabel.style("font-size", "18px");
+  
 
   let playButton = createButton("Play");
   playButton.addClass("playButton");
@@ -412,14 +408,15 @@ function setupInterface() {
   stopButton.mousePressed(() => {
     Tone.Transport.stop();
   });
+  
+  // Appending control buttons directly to the body
 
+  playButton.parent(document.body);
+  stopButton.parent(document.body);
   // Appending rows directly to the body
   rows.forEach((row) => row.parent(document.body));
 
-  // Appending control buttons directly to the body
-  playlabel.parent(document.body);
-  playButton.parent(document.body);
-  stopButton.parent(document.body);
+
 }
 
 // window.addEventListener("resize", () => {
