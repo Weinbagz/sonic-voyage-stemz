@@ -460,18 +460,18 @@ async function startAudio() {
   });
 }
 
-async function startAudio() {
-  if (Tone.context.state !== "running") {
-    // Note that we don't await Tone.start() here. It needs to be started in response to user interaction.
-    console.log("Audio context is not running. Please unmute.");
-  } else {
-    // Unmute the current player for each category
-    for (let category in currentPlayers) {
-      currentPlayers[category].mute = false;
-    }
-    Tone.Transport.start();
-  }
-}
+// async function startAudio() {
+//   if (Tone.context.state !== "running") {
+//     // Note that we don't await Tone.start() here. It needs to be started in response to user interaction.
+//     console.log("Audio context is not running. Please unmute.");
+//   } else {
+//     // Unmute the current player for each category
+//     for (let category in currentPlayers) {
+//       currentPlayers[category].mute = false;
+//     }
+//     Tone.Transport.start();
+//   }
+// }
 
 
 // function clearInterface() {
