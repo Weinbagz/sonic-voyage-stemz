@@ -436,28 +436,28 @@ window.addEventListener("resize", () => {
 });
 
 
-async function startAudio() {
-  if (Tone.context.state !== "running") {
-    await Tone.start();
-  }
+// async function startAudio() {
+//   if (Tone.context.state !== "running") {
+//     await Tone.start();
+//   }
 
-  // Unmute the current player for each category
-  for (let category in currentPlayers) {
-    currentPlayers[category].mute = false;
-  }
+//   // Unmute the current player for each category
+//   for (let category in currentPlayers) {
+//     currentPlayers[category].mute = false;
+//   }
 
   Tone.Transport.start();
   
-  let unmuteButton = createButton("Unmute");
-  unmuteButton.addClass("unmuteButton");
-  unmuteButton.parent(document.body); // Append the button directly to the body
+  // let unmuteButton = createButton("Unmute");
+  // unmuteButton.addClass("unmuteButton");
+  // unmuteButton.parent(document.body); // Append the button directly to the body
 
-  // Event listener to unmute
-  unmuteButton.mousePressed(async () => {
-    if (Tone.context.state !== "running") {
-      await Tone.context.resume();
-    }
-  });
+  // // Event listener to unmute
+  // unmuteButton.mousePressed(async () => {
+  //   if (Tone.context.state !== "running") {
+  //     await Tone.context.resume();
+  //   }
+  // });
 }
 
 // async function startAudio() {
