@@ -440,7 +440,7 @@ function setupInterface() {
 
 function setup() {
   let cnv = createCanvas(400, 400); // specify your canvas size
-  cnv.parent("my-sketch"); // set a parent for the canvas (optional)
+  // cnv.parent("my-sketch"); // set a parent for the canvas (optional)
   background(200); // set a gray background so we can see the canvas
 
   
