@@ -171,9 +171,7 @@ currentImages[category] = images[category][0];
           if (loadCount === totalFiles) {
             loadingIndicator.remove();
             allLoaded = true;
-            console.log("All assets are loaded.");
             setupInterface();
-            startAudio(); 
           }
         },
         loop: true,
@@ -387,28 +385,41 @@ function setupInterface() {
     });
   });
 
+  let playlabel = createElement("p", "Press Play Twice To Activate Sound");
 
- let togglePlaybackButton = createButton("Toggle Playback");
-togglePlaybackButton.addClass("togglePlaybackButton");
+  playlabel.style("color", "#f708f7");
+  playlabel.style("font-size", "18px");
 
-togglePlaybackButton.mousePressed(async () => {
-  if (Tone.Transport.state === "started") {
-    Tone.Transport.stop();
-  } else {
+  let playButton = createButton("Play");
+  playButton.addClass("playButton");
+
+  playButton.mousePressed(async () => {
     if (Tone.context.state !== "running") {
       await Tone.start();
     }
-    Tone.Transport.start();
-  }
-});
 
-// Append the button directly to the body
-togglePlaybackButton.parent(document.body);
+    // Unmute the current player for each category when the "Play" button is pressed
+    for (let category in currentPlayers) {
+      currentPlayers[category].mute = false;
+    }
+
+    Tone.Transport.start();
+  });
+
+  let stopButton = createButton("Stop");
+  stopButton.addClass("stopButton");
+
+  stopButton.mousePressed(() => {
+    Tone.Transport.stop();
+  });
 
   // Appending rows directly to the body
   rows.forEach((row) => row.parent(document.body));
 
- 
+  // Appending control buttons directly to the body
+  playlabel.parent(document.body);
+  playButton.parent(document.body);
+  stopButton.parent(document.body);
 }
 
 window.addEventListener("resize", () => {
@@ -416,61 +427,22 @@ window.addEventListener("resize", () => {
   setupInterface();
 });
 
-
-async function startAudio() {
-  if (Tone.context.state !== "running") {
-    await Tone.start();
-  }
-
-  // Unmute the current player for each category
+function clearInterface() {
+  // Mute the current player for each category before clearing the interface
   for (let category in currentPlayers) {
-    currentPlayers[category].mute = false;
+    currentPlayers[category].mute = true;
   }
 
-  Tone.Transport.start();
-  
-  let unmuteButton = createButton("Unmute");
-  unmuteButton.addClass("unmuteButton");
-  unmuteButton.parent(document.body); // Append the button directly to the body
-
-  // Event listener to unmute
-  unmuteButton.mousePressed(async () => {
-    if (Tone.context.state !== "running") {
-      await Tone.context.resume();
-    }
-  });
+  // Clear all elements created by setupInterface function
+  document
+    .querySelectorAll(
+      ".row, .category, .label, .select, .volume, .effects, .wetDry, .solo, .mute, p, button"
+    )
+    .forEach((element) => element.remove());
 }
-
-async function startAudio() {
-  if (Tone.context.state !== "running") {
-    // Note that we don't await Tone.start() here. It needs to be started in response to user interaction.
-    console.log("Audio context is not running. Please unmute.");
-  } else {
-    // Unmute the current player for each category
-    for (let category in currentPlayers) {
-      currentPlayers[category].mute = false;
-    }
-    Tone.Transport.start();
-  }
-}
-
-
-// function clearInterface() {
-
-//   for (let category in currentPlayers) {
-//     currentPlayers[category].mute = true;
-//   }
-
-
-//   document
-//     .querySelectorAll(
-//       ".row, .category, .label, .select, .volume, .effects, .wetDry, .solo, .mute, p, button"
-//     )
-//     .forEach((element) => element.remove());
-// }
 
 function setup() {
-  let cnv = createCanvas(800, 800); // specify your canvas size
+  let cnv = createCanvas(400, 400); // specify your canvas size
   cnv.parent("my-sketch"); // set a parent for the canvas (optional)
   background(200); // set a gray background so we can see the canvas
 
@@ -480,8 +452,6 @@ function setup() {
     currentImages[category] = null;
   }
 }
-
-
 
 function draw() {
   clear(); // Clear the canvas
